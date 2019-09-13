@@ -9,7 +9,7 @@ pool:
 steps:
 - task: AzureCLI@1
   inputs:
-    azureSubscription: '<yoursub>'
+    azureSubscription: '39b3e05b-8e1e-4e13-a69b-73e205862eae'
     scriptPath: plan.sh
     addSpnToEnvironment: true
   env:
