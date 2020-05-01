@@ -1,0 +1,14 @@
+{
+    "Description": "remov",
+    "Company": "MR",
+    "Application": "BDAP",
+    "Environment": "TT",
+    "Component": "ADF",
+    "MrLocation": "we",
+    "ReaderGroupName": "Fun-CED-bdap-sbx-test-reader",
+    "ContributorGroupName": "Fun-CED-bdap-sbx-test-contributor",
+    "LogAnalyticsWorkspaceName": "mr-bdap-sbx-eu",
+    "Location": "westeurope",
+    "NumberOfAzIRs": 4,
+    "AuthorizedNetworks": []
+}

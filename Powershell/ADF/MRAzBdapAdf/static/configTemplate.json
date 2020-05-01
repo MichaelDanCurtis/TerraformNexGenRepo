@@ -1,0 +1,75 @@
+{
+    "Company": {
+        "mandatory": true,
+        "description": "Name of Company",
+        "example": "MR"
+    },
+    "Application": {
+        "mandatory": true,
+        "description": "Name of Application",
+        "example": "BDAP"
+    },
+    "Environment": {
+        "mandatory": true,
+        "description": "Name of Environment",
+        "example": "SBX"
+    },
+    "Component": {
+        "mandatory": true,
+        "description": "Name of Component",
+        "example": "ADF"
+    },
+    "Description": {
+        "mandatory": false,
+        "description": "Name of Description",
+        "example": "TestDepl"
+    },
+    "Location": {
+        "mandatory": true,
+        "description": "Name of Location",
+        "example": "westeurope"
+    },
+    "ContributorGroupName": {
+        "mandatory": true,
+        "description": "Name of contributor group",
+        "example": "Fun-CED-bdap-sbx-test-contributor"
+    },
+    "ReaderGroupName": {
+        "mandatory": true,
+        "description": "Name of reader group",
+        "example": "Fun-CED-bdap-sbx-test-reader"
+    },
+    "LogAnalyticsWorkspaceName": {
+        "mandatory": true,
+        "description": "Name of Log Analytics workspace",
+        "example": "mr-bdap-sbx-eu"
+    },
+    "NumberOfAzIRs": {
+        "mandatory": true,
+        "description": "Number of preconfigured Azure Integration Runtimes",
+        "example": 2
+    },
+    "AuthorizedNetworks": {
+        "list": true,
+        "listLength": 2,
+        "description": "Names of allowed Networks",
+        "mandatory": true,
+        "properties": {
+            "#Comment": {
+                "mandatory": false,
+                "description": "Description of Vnet",
+                "example": "Subnet for SH Integrated Runtime"
+            },
+            "vnetName": {
+                "mandatory": true,
+                "description": "Name of Virtual Network",
+                "example": "MR-LI-Net-02-WE-S-BDAP"
+            },
+            "subnetName": {
+                "mandatory": true,
+                "description": "Name of Subnet",
+                "example": "MR-LI-Net-02-Sub-01-WE-S-BDAP"
+            }
+        }
+    }
+}

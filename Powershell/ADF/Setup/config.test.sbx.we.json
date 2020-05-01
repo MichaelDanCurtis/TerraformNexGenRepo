@@ -1,0 +1,19 @@
+{
+    "Company": "MR",
+    "Environment": "SBX",
+    "Application": "BDAP",
+    "Component": "ADF",
+    "Description": "relpipe3",
+    "Location": "westeurope",
+    "ContributorGroupName": "Fun-CED-bdap-{0}-test-contributor",
+    "ReaderGroupName": "Fun-CED-bdap-{0}-test-reader",
+    "LogAnalyticsWorkspaceName": "mr-bdap-sbx-eu",
+    "NumberOfAzIRs": 2,
+    "AuthorizedNetworks": [
+        {
+            "#Comment": "Subnet for SH Integrated Runtime",
+            "subnetName": "MR-LI-Net-02-Sub-01-WE-S-BDAP",
+            "vnetName": "MR-LI-Net-02-WE-S-BDAP"
+        }
+    ]
+}
