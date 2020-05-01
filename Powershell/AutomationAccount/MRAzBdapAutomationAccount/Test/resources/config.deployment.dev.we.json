@@ -1,0 +1,14 @@
+{
+    "Company": "MR",
+    "Application": "BDAP",
+    "Environment": "DEV",
+    "Descriptor": "TTWE",
+    "LogAnalyticsWorkspace": "mr-bdap-dev-eu",
+    "RequiredModules": [
+        {
+            "#Comment": "Default AzureAD Module",
+            "Name": "AzureAD",
+            "Version": "2.0.2.16"
+        }
+    ]
+}

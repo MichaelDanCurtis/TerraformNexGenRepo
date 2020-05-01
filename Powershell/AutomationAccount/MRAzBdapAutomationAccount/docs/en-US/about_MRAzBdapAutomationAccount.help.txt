@@ -1,0 +1,8 @@
+TOPIC
+    MRAzBdapAutomationAccount
+
+SHORT DESCRIPTION
+    Module for the creation of the Azure AutomationAccount
+    Naming Convention: <Company>-<Application>-<Environment>
+    - mr-bdap-dev
+    - mr-bdap-sbx

@@ -1,0 +1,16 @@
+{
+    "RequiredModules": [
+        {
+            "#Comment": "Default AzureAD Module",
+            "Name": "AzureAD",
+            "Version": "2.0.2.16",
+            "Repository": "PSGallery"
+        },
+        {
+            "#Comment": "Custom AD Module",
+            "Name": "MrAzBdapAd",
+            "Version": "2.0.0",
+            "Repository": "bdap_nuget_releases"
+        }
+    ]
+}

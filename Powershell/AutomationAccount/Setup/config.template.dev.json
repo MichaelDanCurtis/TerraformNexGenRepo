@@ -1,0 +1,18 @@
+{
+    "Company": "MR",
+    "Application": "BDAP",
+    "Environment": "DEV",
+    "LogAnalyticsWorkspace": "mr-bdap-dev-eu",
+    "RequiredModules": [
+        {
+            "#Comment": "Default AzureAD Module",
+            "Name": "AzureAD",
+            "Version": "2.0.2.16",
+            "Repository": "PSGallery"
+        },
+        {
+            "#Comment": "Az Modules",
+            "Name": "Az"
+        }
+    ]
+}

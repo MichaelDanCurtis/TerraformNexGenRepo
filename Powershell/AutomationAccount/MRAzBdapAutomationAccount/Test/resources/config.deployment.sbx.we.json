@@ -1,0 +1,14 @@
+{
+    "Company": "MR",
+    "Application": "BDAP",
+    "Environment": "SBX",
+    "Descriptor": "TTWE",
+    "LogAnalyticsWorkspace": "mr-bdap-sbx-eu",
+    "RequiredModules": [
+        {
+            "#Comment": "Default AzureAD Module",
+            "Name": "AzureAD",
+            "Version": "2.0.2.16"
+        }
+    ]
+}

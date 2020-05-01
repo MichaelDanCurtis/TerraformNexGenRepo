@@ -1,0 +1,188 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "ComponentName": {
+            "defaultValue": "automationaccounttest",
+            "type": "string",
+            "metadata": {
+                "description": "Name of the automation account"
+            }
+        },
+        "VariablesObjectArray": {
+            "type": "array",
+            "defaultValue": [
+            ],
+            "metadata": {
+                "description": "List of variables to create on the automation account"
+            }
+        },
+        "blobContainers": {
+            "type": "array",
+            "defaultValue": [
+                "modules",
+                "templates"
+            ],
+            "metadata": {
+                "description": "Optional. Blob containers to create."
+            }
+        },
+        "workspaceId": {
+            "type": "string",
+            "defaultValue": "/subscriptions/c64d0b19-4679-45f5-b17a-e27b02146589/resourceGroups/MR-BDAP-SBX-WE-LA/providers/Microsoft.OperationalInsights/workspaces/mr-bdap-sbx-eu",
+            "metadata": {
+                "description": "Log Analytics workspace ID for the Log Analytics workspace to which logs will be sent."
+            }
+        },
+        "dailyScheduleStartTime": {
+            "type": "string",
+            "metadata": {
+                "description": "Start time of the schedule. e.g. Today at 7"
+            }
+        },
+        "DeploymentModuleVersion": {
+            "type": "string",
+            "defaultValue": "UnknownDeploymentVersion",
+            "metadata": {
+                "description": "Module version to be deployed"
+            }
+        },
+        "ReleaseIdentifier": {
+            "type": "string",
+            "defaultValue": "UnknownReleaseIdentifier",
+            "metadata": {
+                "description": "Config used for deployment"
+            }
+        }
+    },
+    "variables": {
+        "VariablesObjectArrayCount": "[length(parameters('VariablesObjectArray'))]",
+        "VariablesObjectArrayEmpty": "[greater(variables('VariablesObjectArrayCount'),0)]",
+        "workaround": {
+            "true": "[parameters('VariablesObjectArray')]",
+            "false": [
+                {
+                    "name": "workaround",
+                    "properties": {
+                    }
+                }
+            ]
+        },
+        "variables": "[variables('workaround')[string(greater(length(parameters('VariablesObjectArray')), 0))]]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Automation/automationAccounts",
+            "name": "[parameters('ComponentName')]",
+            "apiVersion": "2015-10-31",
+            "location": "[resourcegroup().location]",
+            "tags": {
+                "DeploymentModuleVersion": "[parameters('DeploymentModuleVersion')]",
+                "ReleaseIdentifier": "[parameters('ReleaseIdentifier')]"
+            },
+            "scale": null,
+            "properties": {
+                "sku": {
+                    "name": "Free"
+                }
+            },
+            "dependsOn": [
+            ],
+            "resources": [
+            ]
+        },
+        {
+            "type": "Microsoft.Automation/automationAccounts/providers/diagnosticSettings",
+            "name": "[concat(parameters('ComponentName'), '/Microsoft.Insights/service')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('ComponentName'))]"
+            ],
+            "apiVersion": "2016-09-01",
+            "properties": {
+                "workspaceId": "[parameters('workspaceId')]",
+                "logs": [
+                    {
+                        "category": "JobLogs",
+                        "enabled": true
+                    },
+                    {
+                        "category": "JobStreams",
+                        "enabled": true
+                    },
+                    {
+                        "category": "DscNodeStatus",
+                        "enabled": true
+                    }
+                ],
+                "metrics": [
+                    {
+                        "category": "AllMetrics",
+                        "enabled": true
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2017-05-10",
+            "name": "[concat('var-', copyIndex())]",
+            "condition": "[variables('VariablesObjectArrayEmpty')]",
+            "dependsOn": [
+                "[parameters('ComponentName')]"
+            ],
+            "copy": {
+                "name": "iterator",
+                "count": "[length(variables('variables'))]",
+                "mode": "serial"
+            },
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {
+                    },
+                    "variables": {
+                    },
+                    "resources": [
+                        {
+                            "name": "[variables('variables')[copyIndex()].Name]",
+                            "type": "Microsoft.Automation/automationAccounts/variables",
+                            "apiVersion": "2015-10-31",
+                            "properties": {
+                                "value": "[variables('variables')[copyIndex()].Value]",
+                                "description": "[variables('variables')[copyIndex()].Description]",
+                                "isEncrypted": "[variables('variables')[copyIndex()].IsEncrypted]"
+                            }
+                        }
+                    ],
+                    "outputs": {
+                    }
+                }
+            }
+        },
+        {
+            "name": "[concat(parameters('ComponentName'), '/', 'daily')]",
+            "type": "Microsoft.Automation/automationAccounts/schedules",
+            "apiVersion": "2015-10-31",
+            "tags": {
+            },
+            "properties": {
+                "description": "Daily scheduling job: Every day at 7 PM",
+                "startTime": "[parameters('dailyScheduleStartTime')]",
+                "isEnabled": true,
+                "frequency": "Day",
+                "interval": 1,
+                "timeZone": "UTC",
+                "advancedSchedule": {
+                    "weekDays": [
+                        "1"
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Automation/automationAccounts', parameters('ComponentName'))]"
+            ]
+        }
+    ]
+}
