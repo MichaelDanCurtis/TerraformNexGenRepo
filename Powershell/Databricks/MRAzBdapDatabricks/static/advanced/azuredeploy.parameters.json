@@ -1,0 +1,33 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspaceName": {
+            "value": "## TO BE DEFINED ##"
+        },
+        "pricingTier": {
+            "value": "premium"
+        },
+        "customVirtualNetworkId": {
+            "value": "## TO BE DEFINED ##"
+        },
+        "customPublicSubnetName": {
+            "value": "public-subnet"
+        },
+        "customPrivateSubnetName": {
+            "value": "private-subnet"
+        },
+        "managedResourceGroupName": {
+            "value": "## TO BE DEFINED ##"
+        },
+        "DeploymentModuleVersion": {
+            "value": "UnknownDeploymentVersion"
+        },
+        "ReleaseIdentifier": {
+            "value": "UnknownReleaseIdentifier"
+        },
+        "location": {
+            "value": "[resourceGroup().location]"
+        }
+    }
+}
